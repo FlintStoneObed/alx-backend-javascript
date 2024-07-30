@@ -1,10 +1,13 @@
-export default function cleanSet(set, startString) {
-  if (!(set instanceof Set) || typeof startString !== 'string') {
-    throw new Error('Invalid input type');
-  }
-  return Array.from(set)
-    .filter(value => typeof value === 'string' && value.startsWith(startString))
-    .map(value => value.slice(startString.length))
-    .join('-');
-}
+const cleanSet = (set, startString) => {
+  const strings = [];
 
+  if (startString === '' || typeof startString !== 'string') return '';
+  set.forEach((s) => {
+    if (typeof s === 'string' && s.startsWith(startString)) {
+      strings.push(s.slice(startString.length));
+    }
+  });
+  return strings.join('-');
+};
+
+export default cleanSet;
