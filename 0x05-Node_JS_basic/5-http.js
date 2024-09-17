@@ -6,18 +6,17 @@ const app = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Hello Holberton School!\n');
   } else if (req.url === '/students') {
-    const database = process.argv[2];
+    const database = process.argv[2]; // Database path passed as argument
 
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.write('This is the list of our students\n');
 
     countStudents(database)
-      .then(() => {
-        res.end();
+      .then((studentsData) => {
+        res.end(studentsData); // Outputting students information
       })
       .catch((error) => {
-        res.write(error.message);
-        res.end();
+        res.end(error.message); // Handling error and ending response
       });
   } else {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
